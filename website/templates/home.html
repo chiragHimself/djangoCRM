@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    
+
+
+
+    <div class="container" style="max-width: 400px; padding-top : 50px;">  <!-- Restrict width -->
+        {% if user.is_authenticated %}
+        <h1>Thanks for logging in , your content will show here </h1>
+        {% else %}
+        <h1>Login</h1>
+        <br/>
+        <form method="POST" action="{% url 'home' %}">
+            {% csrf_token %}
+            <div class="mb-3">
+                <input 
+                    type="text" 
+                    class="form-control" 
+                    name = "username"
+                    placeholder = "UserName"
+                >
+            </div>
+            <div class="mb-3">
+                <input 
+                    type="password" 
+                    class="form-control" 
+                    name = "password"
+                    placeholder = "Password"
+                >
+            </div>
+            <button type="submit" class="btn btn-dark w-100">Submit</button>
+        </form>
+        {% endif %}
+    </div>
+
+{% endblock %}
