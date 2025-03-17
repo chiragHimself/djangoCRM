@@ -2,9 +2,11 @@ from django.shortcuts import render , redirect
 from django.contrib.auth import authenticate, login , logout
 from django.contrib import messages
 from .forms import SignUpForm
+from .models import Record
 
 # Create your views here.
 def home(request):
+    records = Record.objects.all()
     if(request.method == "POST"):
         username = request.POST['username']    
         password = request.POST['password']
@@ -16,7 +18,7 @@ def home(request):
         else:
             messages.success(request, "There was some error logging in , Please try again.")
             return redirect('home')
-    return render(request , 'home.html')
+    return render(request , 'home.html', {'records' : records})
 
 
 def logout_user(request):
@@ -40,4 +42,21 @@ def register_user(request):
         return render(request, 'register.html', {'form':form})
 
     return render(request, 'register.html', {'form':form})
+
+def customer_record(request , pk):
+    if request.user.is_authenticated:
+        cust_record = Record.objects.get(id = pk)
+        return render(request, 'record.html', {'customer_record':cust_record})
+    else:
+        messages.success(request,"You need to log in first!!")
+        return redirect('home')
     
+def delete_record(request,pk):
+    if request.user.is_authenticated:
+      record = Record.objects.get(id = pk)
+      record.delete()
+      messages.success(request,"Successfully deleted the record!")
+      return redirect('home')
+    else:
+        messages.success(request , "You need to log in first.")
+        return redirect('home')

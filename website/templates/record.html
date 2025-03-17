@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container">
+    <div class="d-flex justify-content-center">
+        <div class="card w-75 mx-auto" style="margin-left: 20%; margin-right: 20%;">
+            <div class="card-header">
+                Customer Data
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Information related to customer: {{ customer_record.first_name }}</h5>
+                <p class="card-text">
+                    <ul style="list-style-type: none; padding: 0; margin: 0;">
+                        <li><strong>First Name:</strong> {{ customer_record.first_name }}</li>
+                        <li><strong>Last Name:</strong> {{ customer_record.last_name }}</li>
+                        <li><strong>Email:</strong> {{ customer_record.email }}</li>
+                        <li><strong>Phone:</strong> {{ customer_record.phone }}</li>
+                        <li><strong>Address:</strong> {{ customer_record.address }}</li>
+                        <li><strong>City:</strong> {{ customer_record.city }}</li>
+                        <li><strong>State:</strong> {{ customer_record.state }}</li>
+                        <li><strong>Zipcode:</strong> {{ customer_record.zipcode }}</li>
+                        <li><strong>Created At:</strong> {{ customer_record.created_at }}</li>
+                        <li><strong>ID:</strong> {{ customer_record.id }}</li>
+                        
+                    </ul>
+                </p>
+                <a href="{% url 'home'%}" class="btn btn-dark">Back</a>
+                <a href="{% url 'delete' customer_record.id %}" class="btn btn-danger">Delete</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
